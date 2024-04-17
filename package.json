@@ -1,0 +1,16 @@
+{
+  "name": "tik-tok",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "tik-tok.js",
+  "scripts": {
+    "start": "node tik-tok.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
