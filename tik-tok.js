@@ -1,8 +1,8 @@
 import fetch from 'node-fetch';
 
 let autopostData;
-let accessToken = 'act.RqO15v5ZRK5RYUCEmBYKJsp8TrUNXwFD0NJeTx0fBqgMJ4rzKIrWtyHel6fW!6268.va';
-let refresh_Token = 'rft.iRa3csG5tI9eMkWspyk3x0CG2IRPUxdgDlA2AZRt35s1QcXZNKLPfoJiuUv9!6287.va';
+let accessToken = 'act.vJZfwWyfSrKHcYzSTkqHNhoCFvIiB8O1GV2toeQBKpsTemZsZBpL8f8TF6uA!6325.va';
+let refresh_Token = 'rft.NmWVygk1tDxzIwiCL7h2UbMSP6vTDf7fxq2tDUNN7LH5QVMYWmDyZRB565yB!6263.va';
 
 //refresh Token
 function refreshTikTokToken(refreshToken) {
@@ -35,7 +35,7 @@ function refreshTikTokToken(refreshToken) {
     });
 }
 
-setInterval(() => refreshTikTokToken(refresh_Token), 12 * 60 * 60 * 1000);
+setInterval(() => refreshTikTokToken(refresh_Token), 24 * 60 * 60 * 1000);
 
 //create tik-tok post
 async function publishTikTokContent(accessToken, title, description, photo) {
@@ -83,7 +83,7 @@ async function processItem(item, match) {
       const competitionName = match.competition?.name || '';
       const venueName = item.venue?.name || '';
     
-      const title = `🎌Match Started!🎌 \n\n💥⚽️💥 ${homeTeamName} vs ${awayTeamName} League: ${competitionName} 💥⚽️💥`;
+      const title = `🎌Match Started!🎌 💥⚽️💥 ${homeTeamName} vs ${awayTeamName} League: ${competitionName} 💥⚽️💥`;
       const description = `${item.url} #${homeTeamName.replace(/[^a-zA-Z]/g, "")} #${awayTeamName.replace(/[^a-zA-Z]/g, "")} #${competitionName.replace(/[^a-zA-Z]/g, "")} ${venueName ? '#' + venueName.replace(/[^a-zA-Z]/g, "") : ''}`
 
       await publishTikTokContent(accessToken, title, description, item.social_picture)
@@ -103,7 +103,6 @@ async function fetchAutopost() {
             },
         });
         const data = await response.json();
-        console.log(data);
         return data; 
     } catch (error) {
         console.error('Error:', error);
@@ -118,7 +117,7 @@ async function getMatch(matches) {
     if (autopostData.some(item => item.enabled === true)) {
         for (const match of matches) {
             for (const item of match.matches) {
-          
+                await new Promise(resolve => setTimeout(resolve, 20000));
                 await processItem(item, match);
             }
         }
